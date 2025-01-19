@@ -1,8 +1,32 @@
 <h2>Our Guitar Collection</h2>
 
+<!-- Show guitar list -->
 <div class="guitar-list">
-  <app-guitar-card
-    *ngFor="let guitar of guitars"
-    [guitar]="guitar">
-  </app-guitar-card>
+  <div *ngFor="let guitar of guitars">
+    <p>{{ guitar.name }} - {{ guitar.brand }} - ${{ guitar.price }}</p>
+  </div>
+</div>
+
+<hr />
+
+<!-- Only show add-guitar form if user is admin -->
+<div *ngIf="authService.isAdmin()">
+  <h3>Add a New Guitar</h3>
+  <form [formGroup]="addGuitarForm" (ngSubmit)="onAddGuitar()">
+    <div>
+      <label>Name:</label>
+      <input type="text" formControlName="name" />
+    </div>
+    <div>
+      <label>Brand:</label>
+      <input type="text" formControlName="brand" />
+    </div>
+    <div>
+      <label>Price:</label>
+      <input type="number" formControlName="price" />
+    </div>
+    <button type="submit">Add Guitar</button>
+  </form>
+  <p class="success" *ngIf="successMsg">{{ successMsg }}</p>
+  <p class="error" *ngIf="errorMsg">{{ errorMsg }}</p>
 </div>

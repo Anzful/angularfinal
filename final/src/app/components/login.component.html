@@ -12,7 +12,7 @@
   <div>
     <label>Password:</label>
     <input type="password" formControlName="password" />
-    <div *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched">
+    <div *ngIf="loginForm.controls['email'].invalid && loginForm.controls['email'].touched">
       <small class="error">Password is required</small>
     </div>
   </div>

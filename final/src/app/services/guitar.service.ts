@@ -6,9 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class GuitarService {
-  // services/auth.service.ts
   private API_URL = 'http://localhost:3000/api';
-
 
   constructor(private http: HttpClient) {}
 
@@ -16,8 +14,8 @@ export class GuitarService {
     return this.http.get<any[]>(`${this.API_URL}/guitars`);
   }
 
-  // Additional CRUD methods if needed:
-  // createGuitar(data: any): Observable<any> { ... }
-  // updateGuitar(id: string, data: any): Observable<any> { ... }
-  // deleteGuitar(id: string): Observable<any> { ... }
+  createGuitar(guitarData: { name: string; brand: string; price: number }): Observable<any> {
+    // This requires an admin token on the server side
+    return this.http.post(`${this.API_URL}/guitars`, guitarData);
+  }
 }

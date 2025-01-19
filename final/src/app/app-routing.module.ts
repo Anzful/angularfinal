@@ -12,12 +12,8 @@ const routes: Routes = [
   { path: 'guitars', component: GuitarsComponent },
   { path: 'about', component: AboutComponent },
   { path: 'login', component: LoginComponent },
-  {
-    path: 'admin',
-    component: AdminComponent,
-    canActivate: [AuthGuard]
-  },
-  // Wildcard route
+  // only allow if user is logged in + role=admin
+  { path: 'admin', component: AdminComponent, canActivate: [AuthGuard] },
   { path: '**', redirectTo: '' }
 ];
 

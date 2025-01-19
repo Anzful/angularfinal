@@ -1,12 +1,18 @@
 <nav>
-  <a routerLink="">Home</a> |
-  <a routerLink="guitars">Guitars</a> |
-  <a routerLink="about">About</a> |
-  <a routerLink="admin">Admin</a> |
-  <a routerLink="login">Login</a>
+  <a routerLink="">Home</a>
+  <a routerLink="guitars">Guitars</a>
+  <a routerLink="about">About</a>
+  <a routerLink="admin" *ngIf="authService.isLoggedIn() && authService.isAdmin()">Admin</a>
+  <a routerLink="login" *ngIf="!authService.isLoggedIn()">Login</a>
+  <a routerLink="register" *ngIf="!authService.isLoggedIn()">Register</a>
+
+  <!-- If user is logged in, display their email and a Logout button -->
+  <span *ngIf="authService.isLoggedIn()">
+    Welcome, {{ authService.currentUserValue?.email }}
+  </span>
+  <button *ngIf="authService.isLoggedIn()" (click)="logout()">Logout</button>
 </nav>
 
 <hr />
 
-<!-- Page content goes here -->
 <router-outlet></router-outlet>
