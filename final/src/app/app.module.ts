@@ -25,7 +25,6 @@ import { AuthGuard } from './guards/auth.guard';
     GuitarsComponent,
     AboutComponent,
     AdminComponent,
-    LoginComponent,
     GuitarCardComponent
   ],
   imports: [

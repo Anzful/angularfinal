@@ -1,18 +1,18 @@
+// login.component.ts
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { AuthService } from 'src/app/services/auth.service';
-import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule], // important for formGroup
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
-  errorMsg = '';
-
-  constructor(private authService: AuthService, private router: Router) {}
+  errorMsg: string = '';
 
   ngOnInit(): void {
     this.loginForm = new FormGroup({
@@ -22,15 +22,6 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.loginForm.valid) {
-      this.authService.login(this.loginForm.value).subscribe({
-        next: () => {
-          this.router.navigate(['/admin']);
-        },
-        error: (err) => {
-          this.errorMsg = 'Invalid credentials';
-        }
-      });
-    }
+    console.log('Form values:', this.loginForm.value);
   }
 }
