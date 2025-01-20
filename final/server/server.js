@@ -23,18 +23,17 @@ app.use(bodyParser.json());
 
 // REGISTER
 app.post('/api/register', (req, res) => {
-  const { email, password, role } = req.body;
-
-  // Check if already exists
-  const existingUser = users.find(u => u.email === email);
-  if (existingUser) {
-    return res.status(400).json({ message: 'Email already taken' });
-  }
-
-  // Otherwise create new user
-  users.push({ email, password, role });
-  return res.json({ message: 'User registered successfully' });
-});
+    const { email, password, role } = req.body;
+    const existingUser = users.find(u => u.email === email);
+    if (existingUser) {
+      console.log(`User already exists: ${email}`);
+      return res.status(400).json({ message: 'Email already taken' });
+    }
+    users.push({ email, password, role });
+    console.log('New user list:', users); // <--- LOG to see updated array
+    return res.json({ message: 'User registered successfully' });
+  });
+  
 
 // LOGIN
 app.post('/api/login', (req, res) => {

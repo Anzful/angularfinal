@@ -1,0 +1,25 @@
+<h2>Register</h2>
+
+<form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+  <div>
+    <label>Email:</label>
+    <input type="text" formControlName="email" />
+  </div>
+
+  <div>
+    <label>Password:</label>
+    <input type="password" formControlName="password" />
+  </div>
+
+  <div>
+    <label>Role:</label>
+    <select formControlName="role">
+      <option value="user">User</option>
+      <option value="admin">Admin</option>
+    </select>
+  </div>
+
+  <button type="submit" [disabled]="registerForm.invalid">Sign Up</button>
+</form>
+
+<p class="error" *ngIf="errorMsg">{{ errorMsg }}</p>

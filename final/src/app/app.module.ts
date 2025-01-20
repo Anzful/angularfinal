@@ -20,6 +20,7 @@ import { GuitarCardComponent } from './components/guitar-card.component';
 
 // Services, Guards, etc.
 import { AuthGuard } from './guards/auth.guard';
+import { RegisterComponent } from './components/register.component';
 // import { JwtInterceptor } from './jwt.interceptor';
 
 @NgModule({
@@ -30,7 +31,8 @@ import { AuthGuard } from './guards/auth.guard';
     AboutComponent,
     AdminComponent,
     GuitarCardComponent,
-    LoginComponent            // <-- Must add here
+    LoginComponent,
+    RegisterComponent            // <-- Must add here
   ],
   imports: [
     BrowserModule,

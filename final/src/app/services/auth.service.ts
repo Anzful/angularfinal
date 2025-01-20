@@ -34,20 +34,15 @@ export class AuthService {
   login(credentials: { email: string; password: string }): Observable<any> {
     return this.http.post(`${this.API_URL}/login`, credentials).pipe(
       tap((response: any) => {
-        // Example response: { token, email, role }
+        // Expect response: { token, email, role }
         localStorage.setItem('token', response.token);
-
-        const userData: UserData = {
-          email: response.email,
-          role: response.role
-        };
-        // Save user data in localStorage
+        const userData = { email: response.email, role: response.role };
         localStorage.setItem('user', JSON.stringify(userData));
-        // Update BehaviorSubject
         this.currentUserSubject.next(userData);
       })
     );
   }
+  
 
   logout(): void {
     localStorage.removeItem('token');

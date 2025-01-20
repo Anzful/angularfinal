@@ -1,19 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { LoginComponent } from './components/login.component';
+import { RegisterComponent } from './components/register.component';
+import { AdminComponent } from './pages/admin.component';
 import { HomeComponent } from './pages/home.component';
 import { GuitarsComponent } from './pages/guitars.component';
 import { AboutComponent } from './pages/about.component';
-import { AdminComponent } from './pages/admin.component';
-import { LoginComponent } from './components/login.component';
-import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'guitars', component: GuitarsComponent },
   { path: 'about', component: AboutComponent },
+  { path: 'admin', component: AdminComponent },
   { path: 'login', component: LoginComponent },
-  // only allow if user is logged in + role=admin
-  { path: 'admin', component: AdminComponent, canActivate: [AuthGuard] },
+  { path: 'register', component: RegisterComponent },
   { path: '**', redirectTo: '' }
 ];
 
