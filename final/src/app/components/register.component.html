@@ -1,19 +1,25 @@
 <h2>Register</h2>
 
 <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
-  <div>
-    <label>Email:</label>
-    <input type="text" formControlName="email" />
+  <div class="form-group">
+    <label for="email">Email:</label>
+    <input id="email" type="text" formControlName="email" />
+    <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+      <small class="error">Email is required and must be valid</small>
+    </div>
   </div>
 
-  <div>
-    <label>Password:</label>
-    <input type="password" formControlName="password" />
+  <div class="form-group">
+    <label for="password">Password:</label>
+    <input id="password" type="password" formControlName="password" />
+    <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+      <small class="error">Password is required</small>
+    </div>
   </div>
 
-  <div>
-    <label>Role:</label>
-    <select formControlName="role">
+  <div class="form-group">
+    <label for="role">Role:</label>
+    <select id="role" formControlName="role">
       <option value="user">User</option>
       <option value="admin">Admin</option>
     </select>

@@ -1,4 +1,36 @@
-h1 {
-    color: #2c3e50;
-  }
-  
+.hero {
+  background: linear-gradient(to bottom, #4a4a4a, #1a1a1a);
+  color: white;
+  text-align: center;
+  padding: 100px 20px;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+
+.hero p {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+}
+
+.cta-button {
+  background: #ff4500;
+  color: white;
+  padding: 10px 20px;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.featured-guitars {
+  padding: 50px 20px;
+  text-align: center;
+}
+
+.guitar-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}

@@ -1,2 +1,15 @@
-<h1>Welcome to Guitar World!</h1>
-<p>Discover amazing guitars and learn more about our store.</p>
+<div class="hero">
+    <div class="hero-content">
+      <h1>Welcome to Guitar Shop</h1>
+      <p>Explore our exclusive guitar collection</p>
+      <a routerLink="/guitars" class="cta-button">Browse Guitars</a>
+    </div>
+  </div>
+  
+  <section class="featured-guitars">
+    <h2>Featured Guitars</h2>
+    <div class="guitar-grid">
+      <app-guitar-card *ngFor="let guitar of featuredGuitars" [guitar]="guitar"></app-guitar-card>
+    </div>
+  </section>
+  

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ReactiveFormsModule } from '@angular/forms'; // <-- Import from @angular/forms
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // <-- Import from @angular/forms
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from './jwt.interceptor';
@@ -21,6 +21,7 @@ import { GuitarCardComponent } from './components/guitar-card.component';
 // Services, Guards, etc.
 import { AuthGuard } from './guards/auth.guard';
 import { RegisterComponent } from './components/register.component';
+import { GuitarFilterPipe } from './pipes/guitar-filter.pipe';
 // import { JwtInterceptor } from './jwt.interceptor';
 
 @NgModule({
@@ -32,13 +33,15 @@ import { RegisterComponent } from './components/register.component';
     AdminComponent,
     GuitarCardComponent,
     LoginComponent,
-    RegisterComponent            // <-- Must add here
+    RegisterComponent,
+    GuitarFilterPipe            // <-- Must add here
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,      // <-- Must be in imports to enable [formGroup]
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [
     AuthGuard,

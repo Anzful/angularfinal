@@ -1,4 +1,10 @@
-h2 {
-    color: #555;
-  }
-  
+.about-page {
+  text-align: center;
+  padding: 50px 20px;
+}
+
+.about-page img {
+  margin-top: 20px;
+  max-width: 100%;
+  border-radius: 10px;
+}
