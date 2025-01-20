@@ -13,8 +13,8 @@ const users = [
 
 // Mock guitars
 let guitars = [
-  { id: 1, name: 'Stratocaster', brand: 'Fender', price: 999 },
-  { id: 2, name: 'Les Paul', brand: 'Gibson', price: 1299 },
+  { id: 1, name: 'Stratocaster', brand: 'Fender', price: 999, image: 'stratocaster.jpg' },
+  { id: 2, name: 'Les Paul', brand: 'Gibson', price: 1299, image: 'les-paul.jpg' },
 ];
 
 const app = express();
@@ -22,17 +22,16 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // REGISTER
-app.post('/api/register', (req, res) => {
-    const { email, password, role } = req.body;
-    const existingUser = users.find(u => u.email === email);
-    if (existingUser) {
-      console.log(`User already exists: ${email}`);
-      return res.status(400).json({ message: 'Email already taken' });
-    }
-    users.push({ email, password, role });
-    console.log('New user list:', users); // <--- LOG to see updated array
-    return res.json({ message: 'User registered successfully' });
-  });
+app.post('/api/guitars', verifyToken, (req, res) => {
+  if (req.user.role !== 'admin') {
+    return res.status(403).json({ message: 'Forbidden: Admins only' });
+  }
+  const { name, brand, price, image } = req.body;
+  const newId = guitars.length ? guitars[guitars.length - 1].id + 1 : 1;
+  const newGuitar = { id: newId, name, brand, price, image };
+  guitars.push(newGuitar);
+  return res.json({ message: 'Guitar created', guitar: newGuitar });
+});
   
 
 // LOGIN

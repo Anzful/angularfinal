@@ -13,9 +13,9 @@ export class GuitarService {
   getAllGuitars(): Observable<any[]> {
     return this.http.get<any[]>(`${this.API_URL}/guitars`);
   }
-
-  createGuitar(guitarData: { name: string; brand: string; price: number }): Observable<any> {
+  createGuitar(guitarData: { name: string; brand: string; price: number; image: string }): Observable<any> {
     // This requires an admin token on the server side
     return this.http.post(`${this.API_URL}/guitars`, guitarData);
   }
+  
 }

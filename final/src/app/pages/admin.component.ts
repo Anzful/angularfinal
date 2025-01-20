@@ -22,7 +22,8 @@ export class AdminComponent implements OnInit {
     this.addGuitarForm = new FormGroup({
       name: new FormControl('', [Validators.required]),
       brand: new FormControl('', [Validators.required]),
-      price: new FormControl('', [Validators.required])
+      price: new FormControl('', [Validators.required]),
+      image: new FormControl('', [Validators.required]) // Add image field
     });
   }
 
