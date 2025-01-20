@@ -1,15 +1,32 @@
-<div class="hero">
-    <div class="hero-content">
-      <h1>Welcome to Guitar Shop</h1>
-      <p>Explore our exclusive guitar collection</p>
-      <a routerLink="/guitars" class="cta-button">Browse Guitars</a>
-    </div>
+<!-- Hero Section -->
+<section class="hero">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <h1>Discover Your Perfect Guitar</h1>
+    <p>Unleash your musical creativity with our exclusive collection</p>
+    <a routerLink="/guitars" class="cta-button">
+      <i class="fas fa-music"></i> Browse Guitars
+    </a>
   </div>
-  
-  <section class="featured-guitars">
-    <h2>Featured Guitars</h2>
-    <div class="guitar-grid">
-      <app-guitar-card *ngFor="let guitar of featuredGuitars" [guitar]="guitar"></app-guitar-card>
-    </div>
-  </section>
-  
+</section>
+
+<!-- Featured Guitars Section -->
+<section class="featured-guitars">
+  <h2>Featured Guitars</h2>
+
+  <!-- Loading Indicator -->
+  <div *ngIf="isLoading" class="loading-spinner">
+    <div class="spinner"></div>
+    <p>Loading featured guitars...</p>
+  </div>
+
+  <!-- Error Message -->
+  <div *ngIf="errorMsg" class="error-message">
+    {{ errorMsg }}
+  </div>
+
+  <!-- Guitars Grid -->
+  <div class="guitar-grid" *ngIf="!isLoading && !errorMsg">
+    <app-guitar-card *ngFor="let guitar of featuredGuitars" [guitar]="guitar"></app-guitar-card>
+  </div>
+</section>

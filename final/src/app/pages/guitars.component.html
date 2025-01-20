@@ -1,50 +1,109 @@
-<h2>Our Guitar Collection</h2>
+<div class="guitars-page">
+  <h2>Our Guitar Collection</h2>
 
-<!-- Search Section -->
-<div class="search-bar">
-  <input 
-    type="text" 
-    [(ngModel)]="searchTerm" 
-    placeholder="Search by name or brand" 
-  />
-  <button (click)="onSearch()">Search</button>
-</div>
-
-<!-- Display Guitars -->
-<div class="guitar-list">
-  <div 
-    *ngFor="let guitar of filteredGuitars" 
-    class="guitar-item">
-    <app-guitar-card [guitar]="guitar"></app-guitar-card>
-  </div>
-</div>
-
-<hr />
-
-<!-- Add Guitar Form (Visible for Admins Only) -->
-<div *ngIf="authService.isAdmin()" class="add-guitar-form">
-  <h3>Add a New Guitar</h3>
-  <form [formGroup]="addGuitarForm" (ngSubmit)="onAddGuitar()">
-    <div class="form-group">
-      <label for="name">Name:</label>
-      <input id="name" type="text" formControlName="name" />
-    </div>
-
-    <div class="form-group">
-      <label for="brand">Brand:</label>
-      <input id="brand" type="text" formControlName="brand" />
-    </div>
-
-    <div class="form-group">
-      <label for="price">Price:</label>
-      <input id="price" type="number" formControlName="price" />
-    </div>
-
-    <button type="submit" [disabled]="addGuitarForm.invalid">
-      Add Guitar
+  <!-- Search Section -->
+  <div class="search-bar">
+    <input 
+      type="text" 
+      [(ngModel)]="searchTerm" 
+      placeholder="Search by name or brand" 
+      (keyup.enter)="onSearch()"
+      aria-label="Search Guitars"
+    />
+    <button (click)="onSearch()" aria-label="Search">
+      <i class="fas fa-search"></i> Search
     </button>
-  </form>
+    <button 
+      *ngIf="searchTerm.trim()" 
+      (click)="searchTerm=''; onSearch();" 
+      aria-label="Clear Search"
+      class="clear-button"
+      title="Clear Search"
+    >
+      <i class="fas fa-times-circle"></i>
+    </button>
+  </div>
 
-  <p class="success" *ngIf="successMsg">{{ successMsg }}</p>
-  <p class="error" *ngIf="errorMsg">{{ errorMsg }}</p>
+  <!-- Loading Indicator -->
+  <div *ngIf="isLoading" class="loading-spinner">
+    <div class="spinner"></div>
+    <p>Loading guitars...</p>
+  </div>
+
+  <!-- Error Message -->
+  <div *ngIf="errorMsg" class="error-message">
+    {{ errorMsg }}
+  </div>
+
+  <!-- Display Guitars -->
+  <div class="guitar-grid" *ngIf="!isLoading && !errorMsg">
+    <app-guitar-card 
+      *ngFor="let guitar of filteredGuitars" 
+      [guitar]="guitar">
+    </app-guitar-card>
+  </div>
+
+  <!-- Add Guitar Form (Visible for Admins Only) -->
+  <div *ngIf="authService.isAdmin()" class="add-guitar-form">
+    <h3>Add a New Guitar</h3>
+    <form [formGroup]="addGuitarForm" (ngSubmit)="onAddGuitar()">
+      <div class="form-group">
+        <label for="name">
+          <i class="fas fa-guitar"></i> Name:
+        </label>
+        <input 
+          id="name" 
+          type="text" 
+          formControlName="name" 
+          placeholder="Enter guitar name"
+          aria-label="Guitar Name"
+        />
+        <div class="validation-error" *ngIf="addGuitarForm.get('name')?.invalid && addGuitarForm.get('name')?.touched">
+          <small>Name is required (min 2 characters).</small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="brand">
+          <i class="fas fa-industry"></i> Brand:
+        </label>
+        <input 
+          id="brand" 
+          type="text" 
+          formControlName="brand" 
+          placeholder="Enter brand name"
+          aria-label="Brand Name"
+        />
+        <div class="validation-error" *ngIf="addGuitarForm.get('brand')?.invalid && addGuitarForm.get('brand')?.touched">
+          <small>Brand is required (min 2 characters).</small>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="price">
+          <i class="fas fa-dollar-sign"></i> Price:
+        </label>
+        <input 
+          id="price" 
+          type="number" 
+          formControlName="price" 
+          placeholder="Enter price"
+          aria-label="Guitar Price"
+          min="0"
+          step="0.01"
+        />
+        <div class="validation-error" *ngIf="addGuitarForm.get('price')?.invalid && addGuitarForm.get('price')?.touched">
+          <small>Price is required and must be a positive number.</small>
+        </div>
+      </div>
+
+      <button type="submit" [disabled]="addGuitarForm.invalid || isAdding">
+        <span *ngIf="isAdding" class="spinner-button"></span>
+        Add Guitar
+      </button>
+    </form>
+
+    <p class="success-message" *ngIf="successMsg">{{ successMsg }}</p>
+    <p class="error-message" *ngIf="errorMsg && !isLoading">{{ errorMsg }}</p>
+  </div>
 </div>

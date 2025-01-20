@@ -1,31 +1,91 @@
-<h2 class="dashboard-title">Admin Dashboard</h2>
+<div class="admin-page" @fadeIn>
+  <h2 class="dashboard-title">Admin Dashboard</h2>
 
-<div class="add-guitar-container">
-  <h3 class="form-title">Add a New Guitar</h3>
-  <form [formGroup]="addGuitarForm" (ngSubmit)="onAddGuitar()" class="add-guitar-form">
-    <div class="form-group">
-      <label for="name">Name:</label>
-      <input id="name" type="text" formControlName="name" />
-    </div>
+  <div class="add-guitar-container" @slideUp>
+    <h3 class="form-title">
+      <i class="fas fa-plus-circle"></i> Add a New Guitar
+    </h3>
+    <form [formGroup]="addGuitarForm" (ngSubmit)="onAddGuitar()" class="add-guitar-form">
+      
+      <!-- Guitar Name -->
+      <div class="form-group">
+        <label for="name">
+          <i class="fas fa-guitar"></i> Name:
+        </label>
+        <input 
+          id="name" 
+          type="text" 
+          formControlName="name" 
+          placeholder="Enter guitar name"
+          aria-label="Guitar Name"
+        />
+        <div class="validation-error" *ngIf="addGuitarForm.get('name')?.invalid && addGuitarForm.get('name')?.touched">
+          <small>Name is required (min 2 characters).</small>
+        </div>
+      </div>
 
-    <div class="form-group">
-      <label for="brand">Brand:</label>
-      <input id="brand" type="text" formControlName="brand" />
-    </div>
+      <!-- Guitar Brand -->
+      <div class="form-group">
+        <label for="brand">
+          <i class="fas fa-industry"></i> Brand:
+        </label>
+        <input 
+          id="brand" 
+          type="text" 
+          formControlName="brand" 
+          placeholder="Enter brand name"
+          aria-label="Brand Name"
+        />
+        <div class="validation-error" *ngIf="addGuitarForm.get('brand')?.invalid && addGuitarForm.get('brand')?.touched">
+          <small>Brand is required (min 2 characters).</small>
+        </div>
+      </div>
 
-    <div class="form-group">
-      <label for="price">Price:</label>
-      <input id="price" type="number" formControlName="price" />
-    </div>
+      <!-- Guitar Price -->
+      <div class="form-group">
+        <label for="price">
+          <i class="fas fa-dollar-sign"></i> Price:
+        </label>
+        <input 
+          id="price" 
+          type="number" 
+          formControlName="price" 
+          placeholder="Enter price"
+          aria-label="Guitar Price"
+          min="0"
+          step="0.01"
+        />
+        <div class="validation-error" *ngIf="addGuitarForm.get('price')?.invalid && addGuitarForm.get('price')?.touched">
+          <small>Price is required and must be a positive number.</small>
+        </div>
+      </div>
 
-    <div class="form-group">
-      <label for="image">Image URL:</label>
-      <input id="image" type="text" formControlName="image" />
-    </div>
+      <!-- Guitar Image URL -->
+      <div class="form-group">
+        <label for="image">
+          <i class="fas fa-image"></i> Image URL:
+        </label>
+        <input 
+          id="image" 
+          type="text" 
+          formControlName="image" 
+          placeholder="Enter image URL"
+          aria-label="Guitar Image URL"
+        />
+        <div class="validation-error" *ngIf="addGuitarForm.get('image')?.invalid && addGuitarForm.get('image')?.touched">
+          <small>A valid image URL is required (e.g., https://example.com/image.jpg).</small>
+        </div>
+      </div>
 
-    <button type="submit" [disabled]="addGuitarForm.invalid" class="submit-button">Add Guitar</button>
-  </form>
+      <!-- Submit Button -->
+      <button type="submit" [disabled]="addGuitarForm.invalid || isAdding" class="submit-button">
+        <span *ngIf="isAdding" class="spinner-button"></span>
+        Add Guitar
+      </button>
+    </form>
 
-  <p class="success" *ngIf="successMsg">{{ successMsg }}</p>
-  <p class="error" *ngIf="errorMsg">{{ errorMsg }}</p>
+    <!-- Success and Error Messages -->
+    <p class="success-message" *ngIf="successMsg">{{ successMsg }}</p>
+    <p class="error-message" *ngIf="errorMsg">{{ errorMsg }}</p>
+  </div>
 </div>

@@ -1,10 +1,50 @@
+<!-- about.component.html -->
+
 <section class="about-page">
-    <h1>About Us</h1>
-    <p>
-      Welcome to Guitar Shop! We specialize in offering the finest guitars for
-      music enthusiasts of all levels. Our team is passionate about music and
-      dedicated to providing exceptional customer service.
-    </p>
+  <!-- Hero Section -->
+  <div class="hero-section">
+    <div class="hero-content">
+      <h1>About Guitar Shop</h1>
+      <p>Your trusted partner in finding the perfect guitar.</p>
+      <a routerLink="/contact" class="cta-button">
+        <i class="fas fa-envelope"></i> Contact Us
+      </a>
+    </div>
+  </div>
+
+  <!-- Mission & Vision -->
+  <div class="mission-vision">
+    <div class="mission">
+      <i class="fas fa-bullseye"></i>
+      <h2>Our Mission</h2>
+      <p>
+        To provide high-quality guitars and exceptional customer service to musicians of all levels.
+      </p>
+    </div>
+    <div class="vision">
+      <i class="fas fa-eye"></i>
+      <h2>Our Vision</h2>
+      <p>
+        To be the leading guitar retailer, inspiring creativity and fostering a vibrant music community.
+      </p>
+    </div>
+  </div>
+
+  <!-- Team Members -->
+  <div class="team-section">
+    <h2>Meet Our Team</h2>
+    <div class="team-grid">
+      <div class="team-member" *ngFor="let member of teamMembers" @fadeInUp>
+        <img [src]="member.image" [alt]="member.name" />
+        <h3>{{ member.name }}</h3>
+        <h4>{{ member.role }}</h4>
+        <p>{{ member.bio }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- About Image -->
+  <div class="about-image">
     <img src="assets/about-image.jpg" alt="About Guitar Shop" />
-  </section>
-  
+  </div>
+</section>

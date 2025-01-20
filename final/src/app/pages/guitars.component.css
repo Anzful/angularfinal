@@ -1,12 +1,27 @@
 /* General Page Layout */
 .guitars-page {
-  padding: 50px 20px;
+  padding: 60px 20px;
+  background: #f0f2f5;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 h2 {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
   color: #333;
+  font-size: 2.5rem;
+  position: relative;
+}
+
+h2::after {
+  content: '';
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(45deg, #ff6a00, #ee0979);
+  display: block;
+  margin: 10px auto 0;
+  border-radius: 2px;
 }
 
 /* Search Bar */
@@ -14,122 +29,264 @@ h2 {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 30px;
-  gap: 10px;
+  margin-bottom: 40px;
+  position: relative;
 }
 
 .search-bar input {
-  width: 300px;
-  padding: 10px;
+  width: 350px;
+  max-width: 100%;
+  padding: 12px 20px;
   border: 1px solid #ddd;
-  border-radius: 5px;
+  border-radius: 50px;
   font-size: 1rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
 }
 
 .search-bar input:focus {
   outline: none;
-  border-color: #007bff;
-  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  border-color: #ee0979;
+  box-shadow: 0 0 8px rgba(238, 9, 121, 0.5);
 }
 
 .search-bar button {
-  padding: 10px 20px;
-  background: #007bff;
-  color: white;
+  position: absolute;
+  right: 10px;
+  background: none;
   border: none;
-  border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  font-size: 1.1rem;
+  color: #ee0979;
+  transition: color 0.3s;
 }
 
 .search-bar button:hover {
-  background: #0056b3;
+  color: #ff6a00;
 }
 
-/* Guitar List */
-.guitar-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 20px;
+.clear-button {
+  right: 50px;
+  color: #e74c3c;
 }
 
-.guitar-item {
-  background: #fff;
-  border-radius: 5px;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-  padding: 10px;
+.clear-button:hover {
+  color: #c0392b;
+}
+
+/* Loading Spinner */
+.loading-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30px;
+}
+
+.spinner {
+  border: 6px solid rgba(0, 0, 0, 0.1);
+  border-top: 6px solid #ee0979;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 15px;
+}
+
+.loading-spinner p {
+  font-size: 1.1rem;
+  color: #555;
+}
+
+/* Error Message */
+.error-message {
+  color: #e74c3c;
+  font-size: 1rem;
   text-align: center;
+  margin-top: 20px;
+}
+
+/* Success Message */
+.success-message {
+  color: #2ecc71;
+  font-size: 1rem;
+  text-align: center;
+  margin-top: 20px;
+}
+
+/* Guitars Grid */
+.guitar-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  padding: 10px;
 }
 
 /* Add Guitar Form */
 .add-guitar-form {
-  margin-top: 50px;
-  padding: 20px;
-  background: #f9f9f9;
-  border-radius: 5px;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  margin-top: 60px;
+  padding: 30px 25px;
+  background: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  animation: fadeInUp 0.8s ease-out;
 }
 
 .add-guitar-form h3 {
-  margin-bottom: 20px;
-  color: #333;
   text-align: center;
+  margin-bottom: 25px;
+  color: #333;
+  font-size: 2rem;
+  position: relative;
+}
+
+.add-guitar-form h3::after {
+  content: '';
+  width: 50px;
+  height: 3px;
+  background: #ee0979;
+  display: block;
+  margin: 8px auto 0;
+  border-radius: 2px;
+}
+
+.add-guitar-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .form-group {
-  margin-bottom: 15px;
   display: flex;
   flex-direction: column;
 }
 
-label {
-  font-weight: bold;
+.form-group label {
+  font-weight: 600;
   margin-bottom: 5px;
+  color: #555;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-input {
-  padding: 10px;
-  font-size: 1rem;
+.form-group input {
+  padding: 12px 15px;
   border: 1px solid #ddd;
-  border-radius: 5px;
-}
-
-input:focus {
-  outline: none;
-  border-color: #007bff;
-  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-}
-
-button {
-  width: 100%;
-  padding: 10px;
+  border-radius: 8px;
   font-size: 1rem;
-  background: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
+  transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-button:disabled {
+.form-group input:focus {
+  outline: none;
+  border-color: #ee0979;
+  box-shadow: 0 0 8px rgba(238, 9, 121, 0.3);
+}
+
+.validation-error small {
+  color: #e74c3c;
+  font-size: 0.85rem;
+  margin-top: 5px;
+}
+
+.add-guitar-form button {
+  padding: 12px 20px;
+  background: linear-gradient(45deg, #ff6a00, #ee0979);
+  color: #fff;
+  border: none;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.add-guitar-form button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 22px rgba(238, 9, 121, 0.3);
+  background: linear-gradient(45deg, #ee0979, #ff6a00);
+}
+
+.add-guitar-form button:disabled {
   background: #ccc;
   cursor: not-allowed;
 }
 
-button:hover:not(:disabled) {
-  background: #0056b3;
+.spinner-button {
+  border: 3px solid rgba(255, 255, 255, 0.4);
+  border-top: 3px solid #fff;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  animation: spin 1s linear infinite;
+  margin-right: 8px;
 }
 
-/* Success and Error Messages */
-.success {
-  color: green;
-  margin-top: 10px;
-  text-align: center;
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
-.error {
-  color: red;
-  margin-top: 10px;
-  text-align: center;
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .guitars-page {
+    padding: 40px 15px;
+  }
+
+  h2 {
+    font-size: 2rem;
+  }
+
+  .search-bar input {
+    width: 250px;
+  }
+
+  .add-guitar-form {
+    padding: 25px 20px;
+  }
+
+  .add-guitar-form h3 {
+    font-size: 1.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .guitars-page {
+    padding: 30px 10px;
+  }
+
+  h2 {
+    font-size: 1.8rem;
+  }
+
+  .search-bar input {
+    width: 200px;
+  }
+
+  .add-guitar-form {
+    padding: 20px 15px;
+  }
+
+  .add-guitar-form h3 {
+    font-size: 1.5rem;
+  }
 }

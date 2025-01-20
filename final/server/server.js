@@ -4,6 +4,8 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import jwt from 'jsonwebtoken';
 
+
+
 const JWT_SECRET = 'mysecretkey';
 
 const users = [
@@ -15,13 +17,48 @@ const users = [
 let guitars = [
   { id: 1, name: 'Stratocaster', brand: 'Fender', price: 999, image: 'stratocaster.jpg' },
   { id: 2, name: 'Les Paul', brand: 'Gibson', price: 1299, image: 'les-paul.jpg' },
+  { id: 3, name: 'Telecaster', brand: 'Fender', price: 899, image: 'telecaster.jpg' }
 ];
 
 const app = express();
+const corsOptions = {
+  origin: 'http://localhost:4200', // Allow requests from this origin
+  methods: 'GET,POST,PUT,DELETE', // Allowed HTTP methods
+  allowedHeaders: 'Content-Type,Authorization' // Allowed headers
+};
 app.use(cors());
 app.use(bodyParser.json());
 
 // REGISTER
+app.post('/api/register', async (req, res) => {
+  const { email, password, role } = req.body;
+
+  // Validate input
+  if (!email || !password || !role) {
+    return res.status(400).json({ message: 'All fields are required' });
+  }
+
+  const validRoles = ['user', 'admin'];
+  if (!validRoles.includes(role)) {
+    return res.status(400).json({ message: 'Invalid role' });
+  }
+
+  // Check if user exists
+  const existingUser = users.find(u => u.email === email);
+  if (existingUser) {
+    console.log(`User already exists: ${email}`);
+    return res.status(400).json({ message: 'Email already taken' });
+  }
+
+
+  // Add new user
+  users.push({ email, password, role });
+  console.log('New user list:', users); // <--- Log the updated user list
+  return res.json({ message: 'User registered successfully' });
+  
+});
+
+
 app.post('/api/guitars', verifyToken, (req, res) => {
   if (req.user.role !== 'admin') {
     return res.status(403).json({ message: 'Forbidden: Admins only' });

@@ -7,20 +7,35 @@ import { GuitarService } from '../services/guitar.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  featuredGuitars: any[] = []; // Define the property to hold featured guitars
+  featuredGuitars: any[] = []; // Holds featured guitars
+  isLoading: boolean = false; // Indicates loading state
+  errorMsg: string = ''; // Stores error messages
 
   constructor(private guitarService: GuitarService) {}
 
   ngOnInit(): void {
-    // Fetch guitars and pick the first 3 as featured (or any other logic)
+    this.fetchFeaturedGuitars();
+  }
+
+  fetchFeaturedGuitars(): void {
+    this.isLoading = true;
     this.guitarService.getAllGuitars().subscribe({
       next: (guitars) => {
-        // Example logic: take the first 3 guitars as featured
-        this.featuredGuitars = guitars.slice(0, 3);
+        this.isLoading = false;
+        // Example logic: select 3 random guitars as featured
+        this.featuredGuitars = this.getRandomGuitars(guitars, 3);
       },
       error: (err) => {
         console.error('Error fetching guitars:', err);
+        this.isLoading = false;
+        this.errorMsg = 'Failed to load featured guitars. Please try again later.';
       }
     });
+  }
+
+  // Helper method to select random guitars
+  getRandomGuitars(guitars: any[], count: number): any[] {
+    const shuffled = guitars.sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, count);
   }
 }

@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
   errorMsg = '';
+  isLoading = false;
 
   constructor(
     private authService: AuthService,
@@ -20,20 +21,22 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
     this.registerForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [Validators.required]),
+      password: new FormControl('', [Validators.required, Validators.minLength(6)]),
       role: new FormControl('user', [Validators.required]) // default = user
     });
   }
 
   onRegister() {
     if (this.registerForm.valid) {
+      this.isLoading = true;
       this.authService.register(this.registerForm.value).subscribe({
         next: (res) => {
-          // On success, maybe auto-login or navigate to login
+          this.isLoading = false;
           this.router.navigate(['/login']);
         },
         error: (err) => {
           console.error(err);
+          this.isLoading = false;
           this.errorMsg = 'Registration failed. Try another email.';
         }
       });

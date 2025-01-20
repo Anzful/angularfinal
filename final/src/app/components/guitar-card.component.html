@@ -1,6 +1,33 @@
-<div class="guitar-card">
-  <img [src]="'assets/images/' + guitar?.image" [alt]="guitar?.name" class="guitar-image" />
-  <h3>{{ guitar?.name }}</h3>
-  <p>Brand: {{ guitar?.brand }}</p>
-  <p>Price: ${{ guitar?.price }}</p>
-</div>
+<!-- guitar-card.component.html -->
+
+<article class="guitar-card" @fadeInUp>
+  <img 
+    [src]="getImage()" 
+    [alt]="guitar.name" 
+    class="guitar-image" 
+    loading="lazy"
+  />
+
+  <div class="guitar-info">
+    <h3>{{ guitar.name }}</h3>
+    <p class="brand">Brand: {{ guitar.brand }}</p>
+    <p class="price">$ {{ guitar.price | number:'1.2-2' }}</p>
+  </div>
+
+  <div class="guitar-actions">
+    <button 
+      class="view-details-button" 
+      (click)="onViewDetails()" 
+      [attr.aria-label]="'View details of ' + guitar.name"
+    >
+      <i class="fas fa-info-circle"></i> Details
+    </button>
+    <button 
+      class="add-cart-button" 
+      (click)="onAddToCart()" 
+      [attr.aria-label]="'Add ' + guitar.name + ' to cart'"
+    >
+      <i class="fas fa-shopping-cart"></i> Add to Cart
+    </button>
+  </div>
+</article>

@@ -1,36 +1,179 @@
+/* Hero Section Styling */
 .hero {
-  background: linear-gradient(to bottom, #4a4a4a, #1a1a1a);
-  color: white;
+  position: relative;
+  background: url('../../assets/images/les-paul.jpg') center/cover no-repeat;
+  height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
   text-align: center;
-  padding: 100px 20px;
+  overflow: hidden;
+}
+
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
+  padding: 0 20px;
+  animation: slideIn 1s ease-out;
 }
 
 .hero h1 {
   font-size: 3rem;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
 }
 
 .hero p {
-  font-size: 1.5rem;
-  margin-bottom: 20px;
+  font-size: 1.25rem;
+  margin-bottom: 30px;
+  line-height: 1.5;
 }
 
 .cta-button {
-  background: #ff4500;
-  color: white;
-  padding: 10px 20px;
-  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  background: linear-gradient(45deg, #ff6a00, #ee0979);
+  color: #fff;
+  padding: 12px 25px;
+  font-size: 1rem;
   text-decoration: none;
-  border-radius: 5px;
+  border-radius: 50px;
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
+.cta-button i {
+  margin-right: 8px;
+  font-size: 1.2rem;
+}
+
+.cta-button:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+}
+
+/* Featured Guitars Section */
 .featured-guitars {
-  padding: 50px 20px;
+  padding: 60px 20px;
+  background: #f9f9f9;
   text-align: center;
 }
 
+.featured-guitars h2 {
+  font-size: 2.5rem;
+  margin-bottom: 40px;
+  position: relative;
+  display: inline-block;
+}
+
+.featured-guitars h2::after {
+  content: '';
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(45deg, #ff6a00, #ee0979);
+  display: block;
+  margin: 10px auto 0;
+  border-radius: 2px;
+}
+
+/* Loading Spinner */
+.loading-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.spinner {
+  border: 5px solid rgba(0, 0, 0, 0.1);
+  border-top: 5px solid #ee0979;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 15px;
+}
+
+.loading-spinner p {
+  font-size: 1rem;
+  color: #555;
+}
+
+/* Error Message */
+.error-message {
+  color: #e74c3c;
+  font-size: 1rem;
+  margin-top: 20px;
+}
+
+/* Guitars Grid */
 .guitar-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  padding: 20px;
+}
+
+/* Animations */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+
+  .hero p {
+    font-size: 1rem;
+  }
+
+  .cta-button {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+
+  .featured-guitars h2 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    height: 60vh;
+  }
+
+  .hero h1 {
+    font-size: 2rem;
+  }
+
+  .featured-guitars h2 {
+    font-size: 1.75rem;
+  }
 }

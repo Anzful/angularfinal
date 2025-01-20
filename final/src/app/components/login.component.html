@@ -1,23 +1,52 @@
-<h2>Login</h2>
+<!-- login.component.html -->
 
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-  <div>
-    <label for="email">Email:</label>
-    <input id="email" type="text" formControlName="email" />
-    <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
-      <small class="error">Email is required and must be valid</small>
+<section class="login-page">
+  <h2 class="login-title">Login</h2>
+
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form" novalidate>
+    <!-- Email Field -->
+    <div class="form-group">
+      <label for="email">
+        <i class="fas fa-envelope"></i> Email:
+      </label>
+      <input 
+        id="email" 
+        type="email" 
+        formControlName="email" 
+        placeholder="Enter your email" 
+        aria-label="Email Address"
+        [class.invalid]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched"
+      />
+      <div class="validation-error" *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+        <small>Email is required and must be valid.</small>
+      </div>
     </div>
-  </div>
 
-  <div>
-    <label for="password">Password:</label>
-    <input id="password" type="password" formControlName="password" />
-    <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
-      <small class="error">Password is required</small>
+    <!-- Password Field -->
+    <div class="form-group">
+      <label for="password">
+        <i class="fas fa-lock"></i> Password:
+      </label>
+      <input 
+        id="password" 
+        type="password" 
+        formControlName="password" 
+        placeholder="Enter your password" 
+        aria-label="Password"
+        [class.invalid]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
+      />
+      <div class="validation-error" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+        <small>Password is required (minimum 6 characters).</small>
+      </div>
     </div>
-  </div>
 
-  <button type="submit" [disabled]="loginForm.invalid">Login</button>
-</form>
+    <!-- Submit Button -->
+    <button type="submit" [disabled]="loginForm.invalid || isLoading" class="submit-button">
+      <span *ngIf="isLoading" class="spinner-button"></span>
+      Login
+    </button>
+  </form>
 
-<p class="error" *ngIf="errorMsg">{{ errorMsg }}</p>
+  <!-- Error Message -->
+  <p class="error-message" *ngIf="errorMsg">{{ errorMsg }}</p>
+</section>
